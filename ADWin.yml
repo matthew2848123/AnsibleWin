@@ -20,8 +20,8 @@
       dns_domain_name: yourdomain.local
       safe_mode_password: SecurePassword123!
       state: domain
-      domain_mode: Win2016
-      forest_mode: Win2016
+      domain_mode: Win2012
+      forest_mode: Win2012
     register: domain_result
 
   - name: Reboot if needed
