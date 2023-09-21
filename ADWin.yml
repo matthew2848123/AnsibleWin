@@ -1,7 +1,6 @@
 ---
-- name: Install and configure Active Directory on localhost
-  hosts: 127.0.0.1
-  connection: local
+- name: Install and configure Active Directory
+  hosts: ad_servers
   gather_facts: no
   tasks:
   - name: Install AD Domain Services
