@@ -1,6 +1,6 @@
 ---
 - name: Install and configure Active Directory
-  hosts: ad_servers
+  hosts: windows
   gather_facts: no
   tasks:
   - name: Install AD Domain Services
