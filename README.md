@@ -5,8 +5,10 @@ Get-Service WinRM and check the status
 
 winrm quickconfig, then select y 
 
-New-NetFirewallRule -Name winrm -DisplayName "Windows Remote Management" -Enabled True -Profile Any -Action Allow -Direction Inbound -Protocol TCP -LocalPort 5985 --> Sets up to open the ports
+New-NetFirewallRule -Name winrm -DisplayName "Windows Remote Management" -Enabled True -Profile Any -Action Allow -Direction Inbound -Protocol TCP -LocalPort 5985 --> Sets up to open the ports 
+
 New-LocalUser -Name "ansible_user" -Password (ConvertTo-SecureString "Password123!" -AsPlainText -Force) -FullName "Ansible User" --> Sets up the ansible account
+
 Add-LocalGroupMember -Group "Administrators" -Member "ansible_user" --> adds the ansible user
 
 Ansible CTRL Host:
