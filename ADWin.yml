@@ -1,0 +1,40 @@
+---
+- name: Install and configure Active Directory on localhost
+  hosts: 127.0.0.1
+  connection: local
+  gather_facts: no
+  tasks:
+  - name: Install AD Domain Services
+    win_feature:
+      name: AD-Domain-Services
+      state: present
+
+  - name: Install required features for AD
+    win_feature:
+      name:
+        - DNS
+        - RSAT-AD-Tools
+      state: present
+
+  - name: Install and configure AD forest
+    win_domain:
+      dns_domain_name: yourdomain.local
+      safe_mode_password: SecurePassword123!
+      state: domain
+      domain_mode: Win2016
+      forest_mode: Win2016
+    register: domain_result
+
+  - name: Reboot if needed
+    win_reboot:
+    when: domain_result.reboot_required
+
+  - name: Add groups to AD
+    win_domain_group:
+      name: "{{ item }}"
+      scope: global
+      category: security
+    loop:
+      - Group1
+      - Group2
+      # Add other groups as needed
