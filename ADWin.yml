@@ -38,3 +38,20 @@
       - Group1
       - Group2
       # Add other groups as needed
+      
+  - name: Add users to AD
+    win_domain_user:
+      name: "{{ item.name }}"
+      password: "{{ item.password }}"
+      state: present
+      groups: "{{ item.groups }}"
+      attributes:
+        givenName: "{{ item.first_name }}"
+        sn: "{{ item.last_name }}"
+        displayName: "{{ item.first_name }} {{ item.last_name }}"
+        # Add other attributes as needed
+    loop:
+      - { name: 'User1', password: 'User1Password', groups: ['Group1'], first_name: 'FirstNameUser1', last_name: 'LastNameUser1' }
+      - { name: 'User2', password: 'User2Password', groups: ['Group2'], first_name: 'FirstNameUser2', last_name: 'LastNameUser2' }
+      # Add other users as needed
+    no_log: True  # Do not log user creation, as it contains sensitive information.
